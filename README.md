@@ -39,9 +39,6 @@ $$y = \frac{1}{1 + \exp(-x)}$$
 | 3,000,000 | 0.02538 | 0.00566 | 4.5x |
 | 5,000,000 | 0.04631 | 0.01021 | 4.5x |
 
-### 実行結果プロット
-
-*(X軸・Y軸は対数スケール)*
 
 ## 考察
 
@@ -59,36 +56,3 @@ $$y = \frac{1}{1 + \exp(-x)}$$
       * 演算速度よりもデータ転送待ちが支配的になるため、倍率は低下する。
       * それでも **約4.5倍** の高速化を維持しており、大規模な学習においてこの最適化は必須であると言える。
 
-## 実行方法
-
-### 必要要件
-
-  * Python 3.x
-  * NumPy
-  * Matplotlib
-
-### インストール
-
-```bash
-pip install numpy matplotlib
-```
-
-### ベンチマークの実行
-
-```bash
-python sigmoid_benchmark.py
-```
-
-実行するとコンソールに結果が表示され、グラフが `sigmoid_benchmark_log.png` として保存されます。
-
-## コード比較
-
-```python
-# 1. Naive Implementation
-# exp(-x) を再計算するため遅い
-dx = dout * (y ** 2) * np.exp(-x)
-
-# 2. Optimized Implementation
-# 計算済みの y を再利用するため速い
-dx = dout * y * (1.0 - y)
-```
